@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/ec_transaction"
+    username: postgres
+    password: admin
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    schemas: public
+  application:
+    name: transaction-history-service
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+server:
+  port: 10001
