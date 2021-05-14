@@ -15,6 +15,12 @@ spring:
     schemas: public
   application:
     name: transaction-history-service
+  rabbitmq:
+    transaction-queue-name: TRANSACTION_QUEUE
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
 
 springdoc:
   swagger-ui:

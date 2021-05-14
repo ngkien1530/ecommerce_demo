@@ -14,6 +14,7 @@ public class TransactionItem {
   private BigInteger id;
   private BigInteger userId;
   private BigDecimal amount;
+  private String transactionId;
   private TransactionStatus status;
   private Date purchaseTime;
 }
