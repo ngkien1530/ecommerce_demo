@@ -23,7 +23,8 @@ public class TransactionService {
         .map(t -> TransactionItem.builder().amount(t.getAmount())
             .purchaseTime(t.getPurchaseTime())
             .status(t.getStatus())
-            .userId(t.getUserId()).build())
+            .userId(t.getUserId())
+            .transactionId(t.getTransactionId()).build())
         .collect(Collectors.toList());
   }
 }
