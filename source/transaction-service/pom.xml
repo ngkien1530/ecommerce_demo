@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ecommerce.demo</groupId>
-	<artifactId>transaction</artifactId>
+	<artifactId>order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>transaction-service</name>
+	<name>order-service</name>
 	<description>Ecommerce Demo - Transaction Service</description>
 	<properties>
 		<java.version>11</java.version>

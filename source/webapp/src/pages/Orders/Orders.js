@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
-import { formatMoney } from "../../pipes/priceFormatter";
-import CartItem from "../../components/CartItem/CartItem";
 import OrderItem from '../../components/OrderItem/OrderItem';
 import OrderListHeader from '../../components/OrderListHeader/OrderListHeader';
 import { fetchUserOrders } from '../../actions';
@@ -16,9 +14,7 @@ const Orders = (props) => {
             <div className="container" style={{ paddingTop: '6rem' }}>
                 <div className="card">
                     <div className="card-header bg-dark text-light">
-                        <i className="fa fa-shopping-cart pr-2" aria-hidden="true"></i>
                             Your Orders
-                            <div className="clearfix"></div>
                     </div>
                     <div className="card-body">
                         {props.orders != undefined && props.orders.length ?

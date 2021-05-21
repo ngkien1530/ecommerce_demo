@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: "jdbc:postgresql://localhost:5432/ec_transaction"
+    url: "jdbc:postgresql://localhost:5432/ec_order"
     username: postgres
     password: admin
   jpa:
@@ -14,13 +14,16 @@ spring:
   flyway:
     schemas: public
   application:
-    name: transaction-history-service
+    name: order-service
   rabbitmq:
     transaction-queue-name: TRANSACTION_QUEUE
     username: guest
     password: guest
     host: localhost
     port: 5672
+    listener:
+      retry:
+        enabled: false
 
 springdoc:
   swagger-ui:

@@ -1,1 +1,29 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/ec_payment"
+    username: postgres
+    password: admin
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    schemas: public
+  application:
+    name: payment-service
+  rabbitmq:
+    transaction-queue-name: TRANSACTION_QUEUE
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+server:
+  port: 10002

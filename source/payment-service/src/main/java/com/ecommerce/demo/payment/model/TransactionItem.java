@@ -13,11 +13,14 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentRequest {
-  private BigDecimal amount;
-  private PaymentMethod method;
+public class TransactionItem {
+
+  private BigInteger id;
   private BigInteger userId;
+  private BigDecimal amount;
+  private String transactionId;
+  private PaymentStatus status;
+  private String statusReadable;
   private Date purchaseTime;
-  private String paymentCardId;
   private OrderInfo orderInfo;
 }

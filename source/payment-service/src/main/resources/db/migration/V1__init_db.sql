@@ -1,13 +1,15 @@
-CREATE TABLE "order"
+CREATE TABLE "transaction"
 (
     id             bigserial primary key,
     user_id   bigserial,
     transaction_id varchar(10),
     amount         decimal,
-    status        varchar(20),
+    payment_status        varchar(20),
     purchase_time timestamp,
     created_date   timestamp default now(),
     updated_date   timestamp default now(),
+    method  varchar,
+    payment_card_id int,
     constraint unique_uk_1 UNIQUE (transaction_id)
 );
 
@@ -19,7 +21,7 @@ RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_order_modified_time
+CREATE TRIGGER update_transaction_history_modified_time
     BEFORE UPDATE
-    ON "order"
+    ON "transaction"
     FOR EACH ROW EXECUTE PROCEDURE update_modified_column();

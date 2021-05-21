@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { shortenTitle } from "../../pipes/shortenTitle";
-import { formatMoney } from "../../pipes/priceFormatter";
 import './OrderItem.scss';
-import { addProductToCart, decrementCartQuantity, incrementCartQuantity, removeProductToCart } from "../../actions";
+import Moment from 'react-moment';
+
+import {formatMoney} from "../../pipes/priceFormatter";
 
 const OrderItem = (
     {
@@ -11,29 +11,29 @@ const OrderItem = (
         purchaseTime,
         description,
         amount,
-        status,
+        statusReadable,
         transactionId,
     }
 ) => {
-    console.log(orderId);
-
+    let time = purchaseTime / 1000;
+    let formmatedMoney = formatMoney(amount)
     return (
         <div className="container">
             <div className="row">
-                <div className="col-sm">
+                <div className="col-2">
                     {transactionId}
                 </div>
-                <div className="col-sm">
-                    {purchaseTime}
+                <div className="col-2">
+                    <Moment unix format="DD/MM/YYYY">{time}</Moment>
                 </div>
-                <div className="col-5">
-                    {description}
+                <div className="col-4">
+                    Lorem ipsum dolor
                 </div>
-                <div className="col-sm">
-                    {amount}
+                <div className="col-2">
+                    {formmatedMoney}
                 </div>
-                <div className="col-sm">
-                    {status}
+                <div className="col-2">
+                    {statusReadable}
                 </div>
             </div>
         </div>

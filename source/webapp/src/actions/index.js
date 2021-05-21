@@ -1,5 +1,5 @@
 import doFetchUserOrders from "../services/order.service";
-import orderService from "../http-common";
+import { orderService, paymentService } from "../http-common";
 
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
@@ -116,7 +116,7 @@ export const LOAD_ORDERS_FAILED = 'LOAD_ORDERS_FAILED';
 export const fetchUserOrders = userId => {
     return dispatch => {
       dispatch(fetchUserOrdersStarted());
-      orderService.get("/transactions/1")
+      orderService.get("/orders/1")
         .then(res => {
             console.log('Success: ', res)
             dispatch(fetchUserOrdersSuccess(res.data))}
@@ -146,6 +146,49 @@ const fetchUserOrdersSuccess = (orders) => (
 const fetchUserOrdersFailed = (error) => (
     {
         type: LOAD_ORDERS_FAILED,
+        payload: {
+            error
+        }
+    }
+)
+
+export const MAKE_PAYMENT = "MAKE_PAYMENT";
+export const MAKE_PAYMENT_SUCCESS = "MAKE_PAYMENT_SUCCESS";
+export const MAKE_PAYMENT_FAILED = "MAKE_PAYMENT_FAILED";
+
+export const makePayment = (paymentMethod, paymentDetail) => {
+    return dispatch => {
+      dispatch(makePaymentStarted());
+      paymentService.post("/pay?provider=VISA", paymentDetail)
+        .then(res => {
+            console.log('Success: ', res)
+            dispatch(makePaymentSuccess(res.data))}
+            )
+        .catch(error => {
+            console.log('Failed: ', error)
+            dispatch(makePaymentFailed(error))
+        })
+    }
+  }
+
+const makePaymentStarted = () => (
+    {
+        type: MAKE_PAYMENT
+    }
+)
+
+const makePaymentSuccess = (res) => (
+    {
+        type: MAKE_PAYMENT_SUCCESS,
+        payload: {
+            res
+        }
+    }
+)
+
+const makePaymentFailed = (error) => (
+    {
+        type: MAKE_PAYMENT_FAILED,
         payload: {
             error
         }

@@ -6,19 +6,19 @@ const OrderListHeader = () => {
         <>
         <div className="container">
             <div className="row">
-                <div className="col-sm">
+                <div className="col-2">
                     Order ID
                 </div>
-                <div className="col-sm">
+                <div className="col-2">
                     Puchase Time
                 </div>
-                <div className="col-5">
+                <div className="col-4">
                     Description
                 </div>
-                <div className="col-sm">
+                <div className="col-2">
                     Amount
                 </div>
-                <div className="col-sm">
+                <div className="col-2">
                     Status
                 </div>
             </div>

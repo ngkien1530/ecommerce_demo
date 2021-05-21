@@ -2,8 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { formatMoney } from "../../pipes/priceFormatter";
 import CartItem from "../../components/CartItem/CartItem";
+import { makePayment } from '../../actions';
+import { moment } from 'react-moment';
 
 const ShoppingCart = (props) => {
+    const makePayment = () => {
+        let products = props.cartItems.map(function (item) {
+            return {
+                name: item.title,
+                price: item.price,
+                description: item.description,
+                quantity: item.quantity,
+            }
+        });
+        let purchaseTime = "2021-05-21T11:39:31.130Z";
+        let paymentDetail = {
+            amount: props.totalPrice,
+            method: 'CREDIT_CARD',
+            userId: '1',
+            purchaseTime,
+            paymentCardId: '1',
+            orderInfo: {
+                total: props.cartItemCount,
+                products
+            }
+        }
+        console.log('payment detail: ', paymentDetail);
+        props.onMakePayment(paymentDetail)
+    }
+
     return (
         <>
             <div className="container" style={{ paddingTop: '6rem' }}>
@@ -22,7 +49,15 @@ const ShoppingCart = (props) => {
                         <div className="pull-right" style={{ margin: '10px' }}>
                             <div className="pull-right" style={{ margin: '5px' }}>
                                 <div>Total price: <b>{formatMoney(props.totalPrice)}€</b></div>
-                                <button className="btn btn-info pull-right">Confirm Payment</button>
+                                {((props.paymentRes == null || props.paymentRes == undefined) && props.cartItemCount > 0) ? 
+                                    <div>
+                                        <div style={{margin: 5}}>Pay with: <b>VISA</b></div>
+                                        <button className="btn btn-info pull-right"
+                                            onClick={makePayment}>Confirm Payment</button>
+                                    </div>
+                                    :
+                                    null }
+                                {props.paymentRes == true ? <div><b>Payment Successful!</b></div> : null}
                             </div>
                         </div>
                     </div>
@@ -31,7 +66,6 @@ const ShoppingCart = (props) => {
         </>
     );
 };
-
 
 const mapStateToProps = state => {
 
@@ -44,8 +78,13 @@ const mapStateToProps = state => {
         }, 0),
         totalPrice: state.shop.cart.reduce((count, curItem) => {
             return count + (curItem.price * curItem.quantity);
-        }, 0)
+        }, 0),
+        paymentRes: state.paymentReducer.paymentRes
     }
 }
 
-export default connect(mapStateToProps, null)(ShoppingCart);
+const mapDispatchToProps = dispatch => ({
+    onMakePayment: paymentDetail => dispatch(makePayment('VISA', paymentDetail))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
